@@ -411,7 +411,7 @@
 .the-graph-dark .port-label {
   fill: #0c0d0e;
   visibility: hidden;
-  font-size: 6px;
+  font-size: 10px;
   dominant-baseline: central;
 }
 .the-graph-dark .inports .port-label {
