@@ -108,7 +108,7 @@
       if (isNaN(this.zoomFactor)) { return; }
 
       // Speed limit
-      var zoomFactor = this.zoomFactor/-500;
+      var zoomFactor = this.zoomFactor/-50;
       zoomFactor = Math.min(0.5, Math.max(-0.5, zoomFactor));
       var scale = this.state.scale + (this.state.scale * zoomFactor);
       this.zoomFactor = 0;
