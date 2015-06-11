@@ -13,15 +13,21 @@ The project is the graph editing tool in [NoFlo UI](https://github.com/noflo/nof
 
 ## Installation
 
-Get dependencies using [Bower](http://bower.io/) and Browserify (via npm and grunt):
-
-    bower install
+Get dependencies using [Bower](http://bower.io/) and Browserify (via npm and grunt). Note that we need to set the proxy beforehand, and can't install anything globally:
+    
+    npm install bower grunt-cli http-server
+    ./node_modules/.bin/bower install
     npm install
-    grunt build
+    ./node_modules/.bin/grunt build
 
 ## Running
 
-You need a local web server. Place these files into somewhere where they can be served, and access the `the-graph-editor/index.html` file with your browser.
+    ./node_modules/.bin/http-server -c-1 .
+    firefox http://localhost:8080/the-graph-editor/2dirpcomp.html
+
+## Screenshot
+
+![2 direction position compare screenshot](https://github.com/thomascobb/the-graph/raw/master/2dirposcomp.gif "2 direction position compare")
 
 ## License
 
