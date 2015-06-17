@@ -195,7 +195,7 @@
         };
         editor.$.graph.library = library;
         
-        var posn = 9;
+        var posn = 3;
         var boolOn = 6;
         var boolOff = 0;
         
@@ -233,12 +233,12 @@
             edges[0].metadata.route = boolOn;          
             edges[1].metadata.route = boolOff;
           }
-          editor.animateEdge(edges[0]);
-          editor.animateEdge(edges[1]);
+          //editor.animateEdge(edges[0]);
+          //editor.animateEdge(edges[1]);
           editor.rerender();
           setTimeout(function(){
-            editor.unanimateEdge(edges[0]);
-            editor.unanimateEdge(edges[1]);      
+            //editor.unanimateEdge(edges[0]);
+            //editor.unanimateEdge(edges[1]);      
           }, 1000); 
           setTimeout(function(){
             toggleLine(edges);     
@@ -281,11 +281,11 @@
           var flashingEdges = [Pulse1Inp, Pulse2Inp, TTLOut1Val, PCap1Val];
           var lineEdges = [LUT1Inpa, LUT1Inpb];
           // Animate
-          editor.animateEdge(PComp1Posn);                              
-          editor.animateEdge(PComp2Posn);
-          editor.animateEdge(PComp3Posn);
+          //editor.animateEdge(PComp1Posn);                              
+          //editor.animateEdge(PComp2Posn);
+          //editor.animateEdge(PComp3Posn);
           for (var i = 0; i < flashingEdges.length; i++) {
-            editor.animateEdge(flashingEdges[i]);
+            //editor.animateEdge(flashingEdges[i]);
           }          
           toggleEdges(flashingEdges);
           toggleLine(lineEdges);
