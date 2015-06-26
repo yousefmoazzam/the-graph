@@ -4,8 +4,8 @@ loadGraph(
     "Arm": {
       "component": "Gate1",
       "metadata": {
-        "x": 60,
-        "y": 80
+        "x": 360,
+        "y": 480
       }
       
     },
