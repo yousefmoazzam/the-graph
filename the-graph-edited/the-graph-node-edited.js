@@ -99,8 +99,6 @@
       TheGraph.mixins.Tooltip
     ],
     componentDidMount: function () {
-      //console.log("here's this.props of node.js:");
-      //console.log(this.props);
       var domNode = this.getDOMNode();
       
       // Dragging
@@ -342,7 +340,6 @@
       );
     },
     render: function() {
-      console.log("inside the render of node.js");
       if (this.props.ports.dirty) {
         // This tag is set when an edge or iip changes port colors
         this.props.ports.dirty = false;
