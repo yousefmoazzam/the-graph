@@ -58,8 +58,6 @@
   };
 
   function createGraphNode(options) {
-    //console.log("inside createGraphNode, here's input options:")
-    //console.log(options)
     return TheGraph.Node(options);
   }
 
@@ -120,8 +118,6 @@
     },
     edgePreview: null,
     edgeStart: function (event) {
-      //console.log("edgePreview event input:");
-      //console.log(event);
       // Forwarded from App.edgeStart()
 
       // Port that triggered this
@@ -170,8 +166,6 @@
       }
     },
     renderPreviewEdge: function (event) {
-      //console.log("renderPreviewEdge event:");
-      //console.log(event);
       var x = event.x || event.clientX || 0;
       var y = event.y || event.clientY || 0;
       x -= this.props.app.state.offsetX || 0;
@@ -212,18 +206,10 @@
       }
     },
     getComponentInfo: function (componentName) {
-      //console.log("here's this.props.library:");
-      //console.log(this.props.library);
-      //console.log("here's this.props:");
-      //console.log(this.props);
       return this.props.library[componentName];
     },
     portInfo: {},
     getPorts: function (graph, processName, componentName) {
-      //console.log("inside getPorts");
-      //console.log(graph);
-      //console.log(processName);
-      //console.log(componentName);
       var node = graph.getNode(processName);
 
       var ports = this.portInfo[processName];
@@ -231,11 +217,9 @@
         var inports = {};
         var outports = {};
         if (componentName && this.props.library) {
-          //console.log("getPorts is working just fine, main if loop is enetered");
           // Copy ports from library object
           var component = this.getComponentInfo(componentName);
           if (!component) {
-            //console.log("component doesn't exist");
             return {
               inports: inports,
               outports: outports
@@ -264,15 +248,10 @@
             };
           }
         }
-        else{
-          //console.log("getPorts isn't working as expected, either componentNameor this.props.library doesn't exist");
-        }
         ports = {
           inports: inports,
           outports: outports
         };
-        //console.log("here's ports in getPorts:");
-        //console.log(ports);
         this.portInfo[processName] = ports;
       }
       return ports;
@@ -312,8 +291,6 @@
       return port;
     },
     resetPortRoute: function (event) {
-      //console.log("here's event.from from resetPortRoute:");
-      //console.log(event.from);
       // Trigger nodes with changed ports to rerender
       if (event.from && event.from.node) {
         var fromNode = this.portInfo[event.from.node];
@@ -321,13 +298,9 @@
           fromNode.dirty = true;
           var outport = fromNode.outports[event.from.port];
           if (outport) {
-            //console.log("here's outport.route:");
-            //console.log(outport.route);
             outport.route = null;
           }
-          //else{console.log("outport.route doesn't exist")}
         }
-        //else{console.log("fromNode doesn't exist")}
       }
       if (event.to && event.to.node) {
         var toNode = this.portInfo[event.to.node];
@@ -335,19 +308,13 @@
           toNode.dirty = true;
           var inport = toNode.inports[event.to.port];
           if (inport) {
-            //console.log("here's inport.route:");
-            //console.log(inport.route);
             inport.route = null;
           }
-          //else{console.log("inport.route doesn't exist")}
         }
-        //else{console.log("toNode doesn't exist")}
       }
     },
     graphOutports: {},
     getGraphOutport: function (key) {
-      //console.log("in getGraphOutport, here's the key input:");
-      //console.log(key);
       var exp = this.graphOutports[key];
       if (!exp) {
         exp = {inports:{},outports:{}};
@@ -379,8 +346,6 @@
       return exp;
     },
     setSelectedNodes: function (nodes) {
-      //console.log("inside setSelectedNodes, here's the input nodes:");
-      //console.log(nodes);
       this.setState({
         selectedNodes: nodes
       });
@@ -412,14 +377,9 @@
     dirty: false,
     libraryDirty: false,
     markDirty: function (event) {
-      //console.log("inside markDirty, here's the input event:")
-      //console.log(event)
-      //console.log(event.libraryDirty)
       if (event && event.libraryDirty) {
-        console.log("event and event.librarDirty both exist, executing code");
         this.libraryDirty = true;
       }
-      //else{console.log("event or event.libraryDirty doesn't exist")}
       window.requestAnimationFrame(this.triggerRender);
     },
     triggerRender: function (time) {
@@ -437,8 +397,6 @@
       return this.dirty;
     },
     render: function() {
-      console.log("rerender has been triggered");
-      //console.log(this)
       this.dirty = false;
 
       var self = this;
@@ -454,10 +412,6 @@
         this.portInfo = {};
       }
 
-      else{
-        //console.log("this.libraryDirty is false, portInfo hasn't been reset");
-      }
-
       // Highlight compatible ports
       var highlightPort = null;
       if (this.state.edgePreview && this.state.edgePreview.type) {
@@ -469,11 +423,6 @@
 
       // Nodes
       var nodes = graph.nodes.map(function (node) {
-        //console.log(self.portInfo);
-        //console.log("inside the-graph-graph, here's the node input:") //logging to console is continuous pretty much, this part is what passes each node from the nodes array defined in the graph prototype, don't uncomment it :P
-        //console.log(node)
-        //console.log("here's the value of self in the-graph-graph:")
-        //console.log(self)
         var componentInfo = self.getComponentInfo(node.component);
         var key = node.id;
         if (!node.metadata) {

@@ -1,6 +1,4 @@
 (function (context) {
-  //console.log("inside the-graph-edited.js, here's 'this':");
-  //console.log(this);
   "use strict";
 
   console.log("here's context in graph-edited.js:");
@@ -73,8 +71,6 @@
       }
     },
     componentDidMount: function () {
-      //console.log("here's this.props of graph.js:");
-      //console.log(this.props);
       if (navigator && navigator.userAgent.indexOf("Firefox") !== -1) {
         // HACK Ff does native tooltips on svg elements
         return;
@@ -354,17 +350,12 @@
 
   // The `merge` function provides simple property merging.
   TheGraph.merge = function(src, dest, overwrite) {
-    //console.log("here's the 3 inputs of emrge:")
-    //console.log(src)
-    //console.log(dest)
-    //console.log(overwrite)
     // Do nothing if neither are true objects.
     if (Array.isArray(src) || Array.isArray(dest) || typeof src !== 'object' || typeof dest !== 'object')
       return dest;
 
     // Default overwriting of existing properties to false.
     overwrite = overwrite || false;
-    //console.log(overwrite)
 
     for (var key in src) {
       // Only copy properties, not functions.
