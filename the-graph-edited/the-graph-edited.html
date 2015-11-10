@@ -7,29 +7,29 @@
     <div id="svgcontainer"></div>
   </template>
 
-  <script type="text/javascript" src="./the-graph.js"></script>
-  <script type="text/javascript" src="./font-awesome-unicode-map.js"></script>
-  <script type="text/javascript" src="./the-graph-app.js"></script>
-  <script type="text/javascript" src="./the-graph-graph.js"></script>
-  <script type="text/javascript" src="./the-graph-node.js"></script>
-  <script type="text/javascript" src="./the-graph-node-menu.js"></script>
-  <script type="text/javascript" src="./the-graph-node-menu-port.js"></script>
-  <script type="text/javascript" src="./the-graph-node-menu-ports.js"></script>
-  <script type="text/javascript" src="./the-graph-port.js"></script>
-  <script type="text/javascript" src="./the-graph-edge.js"></script>
-  <script type="text/javascript" src="./the-graph-iip.js"></script>
-  <script type="text/javascript" src="./the-graph-group.js"></script>
-  <script type="text/javascript" src="./the-graph-tooltip.js"></script>
-  <script type="text/javascript" src="./the-graph-menu.js"></script>
-  <script type="text/javascript" src="./the-graph-clipboard.js"></script>
+  <!--<script type="text/javascript" src="./the-graph.js"></script>-->
+  <!--<script type="text/javascript" src="./font-awesome-unicode-map.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-app.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-graph.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-node.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-node-menu.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-node-menu-port.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-node-menu-ports.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-port.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-edge.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-iip.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-group.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-tooltip.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-menu.js"></script>-->
+  <!--<script type="text/javascript" src="./the-graph-clipboard.js"></script>-->
 
-  <!--<script type="text/javascript" src="../the-graph-edited/editedBundleTry.js"></script>-->
+  <script type="text/javascript" src="./editedBundleTry.js"></script>
 
   <script>
   (function(){
 
-    console.log("inside the self executing function in graph");
-//    "use strict";
+    console.log("inside the self executing funciton in graph")
+    "use strict";
 
     Polymer('the-graph', {
       graph: null,
@@ -56,11 +56,6 @@
       offsetY: null,
       offsetX: null,
       created: function () {
-        console.log("inside created in graph.html");
-        console.log("here's 'this' inside the Polymer function:");
-        console.log(this);
-        console.log("here's the value of 'graph' at the beginning of graph.html");
-        console.log(this.graph);
         this.library = {};
         // Default pan
         this.pan = [0,0];
@@ -71,18 +66,12 @@
         });
       },
       ready: function () {
-        console.log("inside ready in graph.html");
         this.themeChanged();
       },
       themeChanged: function () {
-        console.log("inside themeChanged in graph.html");
         this.$.svgcontainer.className = "the-graph-"+this.theme;
       },
       graphChanged: function (oldGraph, newGraph) {
-//        alert("caller is " + arguments.callee.caller.toString());
-
-        console.log("inside graphChanged:");
-//        console.log(this);
         if (oldGraph && oldGraph.removeListener) {
           oldGraph.removeListener("endTransaction", this.fireChanged);
         }
@@ -107,21 +96,8 @@
         }
 
         // Setup app
-//        console.log("here's the this inside graph.html:")
-//        console.log(this);
-        console.log("here's just before the React.render call in graph.html, has this.graph changed by now?");
-        console.log(this.graph);
-
-//        console.log("here's this.appView before React.render inside graph.html:");
-//        console.log(this.appView);
-
-//        console.log("here's this.library in graph.html");
-//        console.log(this.library);
-
-        console.log("here's this.height and this.width right before React.render:");
-        console.log(this.height);
-        console.log(this.width);
-
+        console.log("here's the this inside graph.html:")
+        console.log(this);
         this.$.svgcontainer.innerHTML = "";
         this.appView = React.render(
           window.TheGraph.App({
@@ -142,16 +118,7 @@
           }),
           this.$.svgcontainer
         );
-
-        console.log("here's graphView of graph.html before assigning to this.appView.refs.graph");
-        console.log(this.graphView);
         this.graphView = this.appView.refs.graph;
-        console.log("here's graphView of graph.html after assigning:");
-        console.log(this.graphView);
-        console.log(this.graphView.portInfo);
-
-//        throw new Error("render has just been called, stop!");
-
       },
       onPanScale: function (x, y, scale) {
         this.pan[0] = x;
@@ -199,7 +166,6 @@
         this.fire('nodes', this.selectedNodes);
       },
       selectedNodesChanged: function () {
-        console.log("inside selectedNodeChanged in graph.html");
         var selectedNodesHash = {};
         for (var i=0, len = this.selectedNodes.length; i<len; i++) {
           selectedNodesHash[this.selectedNodes[i].id] = true;
@@ -208,17 +174,14 @@
         this.fire('nodes', this.selectedNodes);
       },
       selectedNodesHashChanged: function () {
-        console.log("inside selectedNodesHashChanged in graph.html");
         if (!this.graphView) { return; }
         this.graphView.setSelectedNodes(this.selectedNodesHash);
       },
       errorNodesChanged: function () {
-        console.log("inside errorNodesChanged in graph.html");
         if (!this.graphView) { return; }
         this.graphView.setErrorNodes(this.errorNodes);
       },
       selectedEdgesChanged: function () {
-        console.log("one more, inside selectedEdgesChanged in graph.html");
         if (!this.graphView) { return; }
         this.graphView.setSelectedEdges(this.selectedEdges);
         this.fire('edges', this.selectedEdges);
@@ -255,10 +218,6 @@
       },
       triggerAutolayout: function (event) {
         var graph = this.graph;
-
-        console.log("here's this.graphView.portInfo");
-        console.log(this.graphView.portInfo);
-
         var portInfo = this.graphView ? this.graphView.portInfo : null;
         // Calls the autolayouter
         this.autolayouter.layout({
@@ -339,30 +298,17 @@
 
       },
       triggerFit: function () {
-        console.log("inside triggerFit in graph html");
         if (this.appView) {
           this.appView.triggerFit();
         }
       },
       widthChanged: function () {
-        console.log("inside widthChanged in graph.html");
-        console.log(arguments);
-//        alert("caller is " + arguments.callee.caller.toString());
-//        alert("caller is " + arguments.callee.caller.toSource());
-//        alert("caller is " + arguments.callee);
-
-
-
-
         if (!this.appView) { return; }
-        console.log("here's this.width:");
-        console.log(this.width);
         this.appView.setState({
           width: this.width
         });
       },
       heightChanged: function () {
-        console.log("inside heightChanged in graph.html");
         if (!this.appView) { return; }
         this.appView.setState({
           height: this.height
@@ -506,7 +452,5 @@
     });
 
   })();
-
-    console.log("finished the IIFE in graph.html");
   </script>
 </polymer-element>

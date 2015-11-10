@@ -1,9 +1,9 @@
-<link rel="import" href="../the-graph/the-graph.html">
+<!--<link rel="import" href="../the-graph/the-graph.html">-->
 
 <!--<script type="text/javascript" src="../the-graph-edited/editedBundleTry.js"></script>-->
 
 <polymer-element name="the-graph-editor" attributes="grid snap width height autolayout theme selectedNodes errorNodes selectedEdges animatedEdges onContextMenu displaySelectionGroup forceSelection" touch-action="none">
-  <template>
+  <!--<template>-->
     <the-graph id="graph"
       name="{{ graph.properties.name }}"
       graph="{{nofloGraph}}"
@@ -20,11 +20,13 @@
       forceSelection="{{forceSelection}}"
       getMenuDef="{{getMenuDef}}">
     </the-graph>
-  </template>
+  <!--</template>-->
   <script>
   (function () {
     console.log("inside the self executing function in editor")
-//    "use strict";
+    "use strict";
+    console.log("here's 'this' outisde the Polymer function, but inside graph-editor.html:");
+    console.log(this);
 
     Polymer('the-graph-editor', {
       graph: null,
@@ -46,13 +48,9 @@
       displaySelectionGroup: true,
       forceSelection: false,
       created: function () {
-//        alert("caller is " + arguments.callee.caller.toString());
-
         console.log("inside the created function in editor");
-        console.log("here's 'graph' in editor.html:");
-        console.log(this.graph);
-//        console.log("here's the vale of this:")
-//        console.log(this)
+        console.log("here's the value of this inside the Polymer function:");
+        console.log(this);
         this.pan = [0,0];
         var pasteAction = function (graph, itemKey, item) {
           console.log("inside pasteAction");
@@ -222,8 +220,6 @@
             e4: pasteMenu
           }
         };
-        console.log("at the end of created(), has this.graph changed?:");
-        console.log(this.graph);
       },
       ready: function () {console.log("inside the ready function in editor")},
       attached: function () {console.log("inside the attached function in editor")
@@ -271,40 +267,19 @@
         return null;
       },
       widthChanged: function () {
-        console.log("inside width changed in editor.html");
-        console.log("here's this.style.width before running:");
-        console.log(this.style.width);
+//        console.log("inside width changed")
         this.style.width = this.width + "px";
-        console.log("here's this.style.width after running");
-        console.log(this.style.width);
-//        console.log("here's this.style:");
-//        console.log(this.style);
-//        console.log("here's this");
-//        console.log(this);
       },
       heightChanged: function () {
-        console.log("inside heightChanged in editor");
         this.style.height = this.height + "px";
       },
       graphChanged: function () {
         console.log("inside graphChanged in editor")
-        console.log("check to see if this.graph has changed");
-        console.log(this.graph);
         if (typeof this.graph.addNode === 'function') {
           console.log("inside the if statement of graphChanged")
           this.buildInitialLibrary(this.graph);
           this.nofloGraph = this.graph;
           return;
-        }
-        else if (typeof this.graph === null){
-          console.log("typeof this.graph is null")
-        }
-        else if (this.graph === {}){
-          console.log("this.graph is an empty object");
-        }
-        else{
-          console.log("something else is up with 'graph'");
-          console.log(this.nofloGraph);
         }
         var noflo;
         if ('noflo' in window) {
@@ -318,30 +293,20 @@
           return;
         }
         noflo.graph.loadJSON(this.graph, function(nofloGraph){
-
           console.log("inside noflo.graph.loadJSON in editor")
-          console.log("here's the value of 'this' inside noflo.graph.loadJSON:"); /* Well of course it's the same as the 'this' on the outside you doofus, it has a bind function at the end =P */
-          console.log(this);
-
           this.buildInitialLibrary(nofloGraph);
-
           console.log("here's the input nofloGraph:")
           console.log(nofloGraph)
           console.log("here's nofloGraph before:")
           console.log(this.nofloGraph)
-
           this.nofloGraph = nofloGraph;
-
           console.log("here's nofloGraph after:")
           console.log(this.nofloGraph)
 
-          this.fire('graphInitialised', this);
+          var testingDivReference = document.getElementById('testingDiv');
 
+          testingDivReference.fire('graphInitialised', this);
         }.bind(this));
-
-        console.log("here's 'this' outside of the bind() function:");
-        console.log(this);
-
       },
       buildInitialLibrary: function (nofloGraph) {
         console.log("inside buildInitialLibrary")
@@ -439,6 +404,12 @@
         this.$.graph.updateIcon(nodeId, icon);
       },
       rerender: function () {
+        console.log("here's this.$.graph:");
+        console.log(this.$.graph);
+        console.log("checking if theGraphHTMLRewrittenAsJSObject exists in editor.html:");
+        console.log(theGraphHTMLRewrittenAsJSObject);
+        console.log("here's 'this.$' in editor.html:");
+        console.log(this.$);
         this.$.graph.rerender();
       },
       triggerAutolayout: function () {
@@ -489,7 +460,5 @@
       }
     });
   })();
-
-    console.log("finished the IIFE in editor.html");
   </script>
 </polymer-element>

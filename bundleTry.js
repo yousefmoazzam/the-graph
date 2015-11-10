@@ -1,8 +1,20 @@
-(function (context) {
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+console.log(require);
+console.log(typeof require);
+console.log(typeof require('./the-graph.js'));
 
+
+(function () {
+
+  var theGraph = require('./the-graph.js');
   "use strict";
 
-  var TheGraph = context.TheGraph;
+  console.log(this);
+  console.log(window);
+
+  var TheGraph = window.TheGraph;
+
+  console.log(window.TheGraph);
 
   TheGraph.config.app = {
     container: {
@@ -46,8 +58,8 @@
     //console.log("here is content input:")
     //console.log(content);
     //
-    //console.log("here is the options object:")
-    //console.log(options)
+    console.log("here is the options object:")
+    console.log(options)
 
     //console.log("here is the options input variable:");
 
@@ -66,20 +78,20 @@
   }
 
   function createAppGraph(options) {
-    //console.log("createAppGraph options:")
-    //console.log(options)
+    console.log("createAppGraph options:")
+    console.log(options)
     return TheGraph.Graph(options);
   }
 
   function createAppTooltip(options) {
-    //console.log("createAppTooltip options:")
-    //console.log(options)
+    console.log("createAppTooltip options:")
+    console.log(options)
     return TheGraph.Tooltip(options);
   }
 
   function createAppModalBackground(options) {
-    //console.log("createAppModalBackground options:")
-    //console.log(options)
+    console.log("createAppModalBackground options:")
+    console.log(options)
     return TheGraph.ModalBG(options);
   }
 
@@ -159,8 +171,8 @@
     lastY: 0,
     pinching: false,
     onTransformStart: function (event) {
-      //console.log("here's the event in onTransformStart:")
-      //console.log(event)
+      console.log("here's the event in onTransformStart:")
+      console.log(event)
       // Don't drag nodes
       event.stopPropagation();
       event.stopImmediatePropagation();
@@ -275,8 +287,6 @@
       });
     },
     triggerFit: function (event) {
-      console.log("gefiuewqgfvbWFEGV   wheoihwq changing width");
-
       var fit = TheGraph.findFit(this.props.graph, this.props.width, this.props.height);
       this.setState({
         x: fit.x,
@@ -318,11 +328,11 @@
       this.hideContext();
     },
     componentDidMount: function () {
-      //console.log("here's app.js this.props:")
-      //console.log(this.props)
+      console.log("here's app.js this.props:")
+      console.log(this.props)
       var domNode = this.getDOMNode();
-      //console.log("here's domNode:")
-      //console.log(domNode)
+      console.log("here's domNode:")
+      console.log(domNode)
 
       // Set up PolymerGestures for app and all children
       var noop = function(){};
@@ -436,8 +446,8 @@
     },
     unselectAll: function (event) {
       // No arguments = clear selection
-      //console.log("here's the event for unselectAll:")
-      //console.log(event)
+      console.log("here's the event for unselectAll:")
+      console.log(event)
       this.props.onNodeSelection();
       this.props.onEdgeSelection();
     },
@@ -506,8 +516,8 @@
         });
     },
     render: function() {
-      //console.log("inside render for graphApp")
-      //console.log(TheGraph.merge)
+      console.log("inside render for graphApp")
+      console.log(TheGraph.merge)
 
       // console.timeEnd("App.render");
       // console.time("App.render");
@@ -545,11 +555,6 @@
         this.menuShown = false;
       }
 
-      console.log("here's this.props.library inside app:");
-      console.log(this.props.library);
-      console.log("here's this.props in app");
-      console.log(this.props);
-
       var graphElementOptions = {
         graph: this.props.graph,
         scale: this.state.scale,
@@ -559,8 +564,8 @@
         onEdgeSelection: this.props.onEdgeSelection,
         showContext: this.showContext
       };
-      //console.log("here's 'this' in app.js:")
-      //console.log(this)
+      console.log("here's 'this' in app.js:")
+      console.log(this)
       graphElementOptions = TheGraph.merge(TheGraph.config.app.graph, graphElementOptions);
       var graphElement = TheGraph.factories.app.createAppGraph.call(this, graphElementOptions);
 
@@ -605,13 +610,457 @@
       ];
       var containerOptions = TheGraph.merge(TheGraph.config.app.container, { style: { width: this.state.width, height: this.state.height } });
       containerOptions.className += " " + scaleClass;
-      console.log("inside app.js, here's 'this':");
-      console.log(this)
-      console.log("here's this.state too:");
-      console.log(this.state);
       return TheGraph.factories.app.createAppContainer.call(this, containerOptions, appContents);
     }
   }));
 
 
-})(this);
+})();
+},{"./the-graph.js":2}],2:[function(require,module,exports){
+
+
+var theGraph = (function () {
+  //console.log("inside the-graph.js, here's the context input:")
+  //console.log(context)
+  "use strict";
+
+  var defaultNodeSize = 72;
+  var defaultNodeRadius = 8;
+
+  // Dumb module setup
+  var TheGraph = window.TheGraph = {
+    // nodeSize and nodeRadius are deprecated, use TheGraph.config.(nodeSize/nodeRadius),ie lines 20 and 22
+    nodeSize: defaultNodeSize,
+    nodeRadius: defaultNodeRadius,
+    nodeSide: 56,
+    // Context menus
+    contextPortSize: 36,
+    // Zoom breakpoints
+    zbpBig: 1.2,
+    zbpNormal: 0.4,
+    zbpSmall: 0.01,
+    config: {
+      nodeSize: defaultNodeSize,
+      nodeWidth: defaultNodeSize,
+      nodeRadius: defaultNodeRadius,
+      nodeHeight: defaultNodeSize,
+      autoSizeNode: true,
+      maxPortCount: 9,
+      nodeHeightIncrement: 12,
+      focusAnimationDuration: 1500
+    },
+    factories: {}
+  };
+
+  // React setup
+  React.initializeTouchEvents(true);
+
+  // rAF shim
+  window.requestAnimationFrame = window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.msRequestAnimationFrame;
+
+  // Mixins to use throughout project
+  TheGraph.mixins = {};
+
+  // Show fake tooltip
+  // Class must have getTooltipTrigger (dom node) and shouldShowTooltip (boolean)
+  TheGraph.mixins.Tooltip = {
+    showTooltip: function (event) {
+      if ( !this.shouldShowTooltip() ) { return; }
+
+      var tooltipEvent = new CustomEvent('the-graph-tooltip', {
+        detail: {
+          tooltip: this.props.label,
+          x: event.clientX,
+          y: event.clientY
+        },
+        bubbles: true
+      });
+      this.getDOMNode().dispatchEvent(tooltipEvent);
+    },
+    hideTooltip: function (event) {
+      if ( !this.shouldShowTooltip() ) { return; }
+
+      var tooltipEvent = new CustomEvent('the-graph-tooltip-hide', {
+        bubbles: true
+      });
+      if (this._lifeCycleState === "MOUNTED") {
+        this.getDOMNode().dispatchEvent(tooltipEvent);
+      }
+    },
+    componentDidMount: function () {
+      console.log("here's this.props of graph.js:")
+      console.log(this.props)
+      if (navigator && navigator.userAgent.indexOf("Firefox") !== -1) {
+        // HACK Ff does native tooltips on svg elements
+        return;
+      }
+      var tooltipper = this.getTooltipTrigger();
+      tooltipper.addEventListener("tap", this.showTooltip);
+      tooltipper.addEventListener("mouseenter", this.showTooltip);
+      tooltipper.addEventListener("mouseleave", this.hideTooltip);
+    }
+  };
+
+  TheGraph.findMinMax = function (graph, nodes) {
+    var inports, outports;
+    if (nodes === undefined) {
+      nodes = graph.nodes.map( function (node) {
+        return node.id;
+      });
+      // Only look at exports when calculating the whole graph
+      inports = graph.inports;
+      outports = graph.outports;
+    }
+    if (nodes.length < 1) {
+      return undefined;
+    }
+    var minX = Infinity;
+    var minY = Infinity;
+    var maxX = -Infinity;
+    var maxY = -Infinity;
+
+    // Loop through nodes
+    var len = nodes.length;
+    for (var i=0; i<len; i++) {
+      var key = nodes[i];
+      var node = graph.getNode(key);
+      if (!node || !node.metadata) {
+        continue;
+      }
+      if (node.metadata.x < minX) { minX = node.metadata.x; }
+      if (node.metadata.y < minY) { minY = node.metadata.y; }
+      var x = node.metadata.x + node.metadata.width;
+      var y = node.metadata.y + node.metadata.height;
+      if (x > maxX) { maxX = x; }
+      if (y > maxY) { maxY = y; }
+    }
+    // Loop through exports
+    var keys, exp;
+    if (inports) {
+      keys = Object.keys(inports);
+      len = keys.length;
+      for (i=0; i<len; i++) {
+        exp = inports[keys[i]];
+        if (!exp.metadata) { continue; }
+        if (exp.metadata.x < minX) { minX = exp.metadata.x; }
+        if (exp.metadata.y < minY) { minY = exp.metadata.y; }
+        if (exp.metadata.x > maxX) { maxX = exp.metadata.x; }
+        if (exp.metadata.y > maxY) { maxY = exp.metadata.y; }
+      }
+    }
+    if (outports) {
+      keys = Object.keys(outports);
+      len = keys.length;
+      for (i=0; i<len; i++) {
+        exp = outports[keys[i]];
+        if (!exp.metadata) { continue; }
+        if (exp.metadata.x < minX) { minX = exp.metadata.x; }
+        if (exp.metadata.y < minY) { minY = exp.metadata.y; }
+        if (exp.metadata.x > maxX) { maxX = exp.metadata.x; }
+        if (exp.metadata.y > maxY) { maxY = exp.metadata.y; }
+      }
+    }
+
+    if (!isFinite(minX) || !isFinite(minY) || !isFinite(maxX) || !isFinite(maxY)) {
+      return null;
+    }
+    return {
+      minX: minX,
+      minY: minY,
+      maxX: maxX,
+      maxY: maxY
+    };
+  };
+
+  TheGraph.findFit = function (graph, width, height) {
+    var limits = TheGraph.findMinMax(graph);
+    if (!limits) {
+      return {x:0, y:0, scale:1};
+    }
+    limits.minX -= TheGraph.config.nodeSize;
+    limits.minY -= TheGraph.config.nodeSize;
+    limits.maxX += TheGraph.config.nodeSize * 2;
+    limits.maxY += TheGraph.config.nodeSize * 2;
+
+    var gWidth = limits.maxX - limits.minX;
+    var gHeight = limits.maxY - limits.minY;
+
+    var scaleX = width / gWidth;
+    var scaleY = height / gHeight;
+
+    var scale, x, y;
+    if (scaleX < scaleY) {
+      scale = scaleX;
+      x = 0 - limits.minX * scale;
+      y = 0 - limits.minY * scale + (height-(gHeight*scale))/2;
+    } else {
+      scale = scaleY;
+      x = 0 - limits.minX * scale + (width-(gWidth*scale))/2;
+      y = 0 - limits.minY * scale;
+    }
+
+    return {
+      x: x,
+      y: y,
+      scale: scale
+    };
+  };
+
+  TheGraph.findAreaFit = function (point1, point2, width, height) {
+    var limits = {
+      minX: point1.x < point2.x ? point1.x : point2.x,
+      minY: point1.y < point2.y ? point1.y : point2.y,
+      maxX: point1.x > point2.x ? point1.x : point2.x,
+      maxY: point1.y > point2.y ? point1.y : point2.y
+    };
+
+    limits.minX -= TheGraph.config.nodeSize;
+    limits.minY -= TheGraph.config.nodeSize;
+    limits.maxX += TheGraph.config.nodeSize * 2;
+    limits.maxY += TheGraph.config.nodeSize * 2;
+
+    var gWidth = limits.maxX - limits.minX;
+    var gHeight = limits.maxY - limits.minY;
+
+    var scaleX = width / gWidth;
+    var scaleY = height / gHeight;
+
+    var scale, x, y;
+    if (scaleX < scaleY) {
+      scale = scaleX;
+      x = 0 - limits.minX * scale;
+      y = 0 - limits.minY * scale + (height-(gHeight*scale))/2;
+    } else {
+      scale = scaleY;
+      x = 0 - limits.minX * scale + (width-(gWidth*scale))/2;
+      y = 0 - limits.minY * scale;
+    }
+
+    return {
+      x: x,
+      y: y,
+      scale: scale
+    };
+  };
+
+  TheGraph.findNodeFit = function (node, width, height) {
+    var limits = {
+      minX: node.metadata.x - TheGraph.config.nodeSize,
+      minY: node.metadata.y - TheGraph.config.nodeSize,
+      maxX: node.metadata.x + TheGraph.config.nodeSize * 2,
+      maxY: node.metadata.y + TheGraph.config.nodeSize * 2
+    };
+
+    var gWidth = limits.maxX - limits.minX;
+    var gHeight = limits.maxY - limits.minY;
+
+    var scaleX = width / gWidth;
+    var scaleY = height / gHeight;
+
+    var scale, x, y;
+    if (scaleX < scaleY) {
+      scale = scaleX;
+      x = 0 - limits.minX * scale;
+      y = 0 - limits.minY * scale + (height-(gHeight*scale))/2;
+    } else {
+      scale = scaleY;
+      x = 0 - limits.minX * scale + (width-(gWidth*scale))/2;
+      y = 0 - limits.minY * scale;
+    }
+
+    return {
+      x: x,
+      y: y,
+      scale: scale
+    };
+  };
+
+  // SVG arc math
+  var angleToX = function (percent, radius) {
+    return radius * Math.cos(2*Math.PI * percent);
+  };
+  var angleToY = function (percent, radius) {
+    return radius * Math.sin(2*Math.PI * percent);
+  };
+  var makeArcPath = function (startPercent, endPercent, radius) {
+    return [ 
+      "M", angleToX(startPercent, radius), angleToY(startPercent, radius),
+      "A", radius, radius, 0, 0, 0, angleToX(endPercent, radius), angleToY(endPercent, radius)
+    ].join(" ");
+  };
+  TheGraph.arcs = {
+    n4: makeArcPath(7/8, 5/8, 36),
+    s4: makeArcPath(3/8, 1/8, 36),
+    e4: makeArcPath(1/8, -1/8, 36),
+    w4: makeArcPath(5/8, 3/8, 36),
+    inport: makeArcPath(-1/4, 1/4, 4),
+    outport: makeArcPath(1/4, -1/4, 4),
+    inportBig: makeArcPath(-1/4, 1/4, 6),
+    outportBig: makeArcPath(1/4, -1/4, 6),
+  };
+
+
+  // Reusable React classes
+  TheGraph.SVGImage = React.createFactory( React.createClass({
+    displayName: "TheGraphSVGImage",
+    render: function() {
+        var html = '<image ';
+        html = html +'xlink:href="'+ this.props.src + '"';
+        html = html +'x="' + this.props.x + '"';
+        html = html +'y="' + this.props.y + '"';
+        html = html +'width="' + this.props.width + '"';
+        html = html +'height="' + this.props.height + '"';
+        html = html +'/>';
+
+        return React.DOM.g({
+            className: this.props.className,
+            dangerouslySetInnerHTML:{__html: html}
+        });
+    }
+  }));
+
+  TheGraph.TextBG = React.createFactory( React.createClass({
+    displayName: "TheGraphTextBG",
+    render: function() {
+      var text = this.props.text;
+      if (!text) {
+        text = "";
+      }
+      var height = this.props.height;
+      var width = text.length * this.props.height * 2/3;
+      var radius = this.props.height/2;
+
+      var textAnchor = "start";
+      var dominantBaseline = "central";
+      var x = this.props.x;
+      var y = this.props.y - height/2;
+
+      if (this.props.halign === "center") {
+        x -= width/2;
+        textAnchor = "middle";
+      }
+      if (this.props.halign === "right") {
+        x -= width;
+        textAnchor = "end";
+      }
+
+      return React.DOM.g(
+        {
+          className: (this.props.className ? this.props.className : "text-bg"),
+        },
+        React.DOM.rect({
+          className: "text-bg-rect",
+          x: x,
+          y: y,
+          rx: radius,
+          ry: radius,
+          height: height * 1.1,
+          width: width
+        }),
+        React.DOM.text({
+          className: (this.props.textClassName ? this.props.textClassName : "text-bg-text"),
+          x: this.props.x,
+          y: this.props.y,
+          children: text
+        })
+      );
+    }
+  }));
+
+  // The `merge` function provides simple property merging.
+  TheGraph.merge = function(src, dest, overwrite) {
+    //console.log("here's the 3 inputs of emrge:")
+    //console.log(src)
+    //console.log(dest)
+    //console.log(overwrite)
+    // Do nothing if neither are true objects.
+    if (Array.isArray(src) || Array.isArray(dest) || typeof src !== 'object' || typeof dest !== 'object')
+      return dest;
+
+    // Default overwriting of existing properties to false.
+    overwrite = overwrite || false;
+    //console.log(overwrite)
+
+    for (var key in src) {
+      // Only copy properties, not functions.
+      if (typeof src[key] !== 'function' && (!dest[key] || overwrite))
+        dest[key] = src[key];
+    }
+
+    return dest;
+  };
+
+  TheGraph.factories.createGroup = function(options, content) {
+    var args = [options];
+
+    if (Array.isArray(content)) {
+      args = args.concat(content);
+    }
+
+    return React.DOM.g.apply(React.DOM.g, args);
+  };
+
+  TheGraph.factories.createRect = function(options) {
+    return React.DOM.rect(options);
+  };
+
+  TheGraph.factories.createText = function(options) {
+    return React.DOM.text(options);
+  };
+
+  TheGraph.factories.createCircle = function(options) {
+    return React.DOM.circle(options);
+  };
+
+  TheGraph.factories.createPath = function(options) {
+    return React.DOM.path(options);
+  };
+
+  TheGraph.factories.createImg = function(options) {
+    return TheGraph.SVGImage(options);
+  };
+
+  TheGraph.factories.createCanvas = function(options) {
+    return React.DOM.canvas(options);
+  };
+
+  TheGraph.factories.createSvg = function(options, content) {
+
+    var args = [options];
+
+    if (Array.isArray(content)) {
+      args = args.concat(content);
+    }
+
+    return React.DOM.svg.apply(React.DOM.svg, args);
+  };
+  
+  TheGraph.getOffset = function(domNode){
+    var getElementOffset = function(element){
+      var offset = { top: 0, left: 0},
+          parentOffset;
+      if(!element){
+        return offset;
+      }
+      offset.top += (element.offsetTop || 0);
+      offset.left += (element.offsetLeft || 0);
+      parentOffset = getElementOffset(element.offsetParent);
+      offset.top += parentOffset.top;
+      offset.left += parentOffset.left;
+      return offset;
+    };
+    try{
+      return getElementOffset( domNode );
+    }catch(e){
+      return getElementOffset();
+    }
+  };
+
+})();
+
+module.exports = theGraph;
+
+},{}]},{},[1]);

@@ -37,7 +37,7 @@ loadGraph({
   },
   "groups": [
     {
-      "name": "elements", 
+      "name": "elements",
       "nodes": ["dom/GetElement_ah82a", "dom/GetElement_f4nkd", "dom/GetElement_z64xf", "dom/GetElement_ah36i", "core/Split_jzzu2"],
       "metadata": {
         "description": "get the elements from the dom",
@@ -45,7 +45,7 @@ loadGraph({
       }
     },
     {
-      "name": "setup", 
+      "name": "setup",
       "nodes": ["interaction/ListenMouse_1w3vt", "core/Split_y0bla", "seriously/SetSource_szf33", "gum/GetUserMedia_9e9i4", "dom/SetAttribute_uto4k", "core/Split_occbw", "core/RepeatAsync_647ff", "core/Kick_4njgs"],
       "metadata": {
         "color": 2

@@ -1,7 +1,10 @@
 (function (context) {
-  //console.log("inside the-graph.js, here's the context input:")
-  //console.log(context)
+  //console.log("inside the-graph-edited.js, here's 'this':");
+  //console.log(this);
   "use strict";
+
+  console.log("here's context in graph-edited.js:");
+  console.log(context);
 
   var defaultNodeSize = 72;
   var defaultNodeRadius = 8;
@@ -70,8 +73,8 @@
       }
     },
     componentDidMount: function () {
-      //console.log("here's this.props of graph.js:")
-      //console.log(this.props)
+      //console.log("here's this.props of graph.js:");
+      //console.log(this.props);
       if (navigator && navigator.userAgent.indexOf("Firefox") !== -1) {
         // HACK Ff does native tooltips on svg elements
         return;
@@ -438,4 +441,4 @@
     }
   };
 
-})(this);
+})(window);

@@ -1,8 +1,34 @@
 (function (context) {
 
+  //var theGraph = require('./the-graph-edited.js');
+  //console.log(theGraph);
+  //console.log(require('./the-graph-edited.js'));
+  //console.log(module.exports);
+  //var fontAwesomeEdited = require('./font-awesome-unicode-map-edited.js');
+  //var theGraphGraphEdited = require('./the-graph-graph-edited.js');
+  //var theGraphNodeEdited = require('./the-graph-node-edited.js');
+  //var theGraphNodeMenuEdited = require('./the-graph-node-menu-edited.js');
+  //var theGraphNodeMenuPortEdited = require('./the-graph-node-menu-port-edited.js');
+  //var theGraphNodeMenuPortsEdited = require('./the-graph-node-menu-ports-edited.js');
+  //var theGraphPortEdited = require('./the-graph-port-edited.js');
+  //var theGraphEdgeEdited = require('./the-graph-edge-edited.js');
+  //var theGraphIIPEdited = require('./the-graph-iip-edited.js');
+  //var theGraphGroupEdited = require('./the-graph-group-edited.js');
+  //var theGraphTooltipEdited = require('./the-graph-tooltip-edited.js');
+  //var theGraphMenuEdited = require('./the-graph-menu-edited.js');
+  //var theGraphClipboardEdited = require('./the-graph-clipboard-edited.js');
+
   "use strict";
+  //console.log("here's this in app edited:");
+  //console.log(this);
+  //console.log(window);
+  //
+  //console.log("here's context in app edited:");
+  //console.log(context);
 
   var TheGraph = context.TheGraph;
+
+  //console.log(context.TheGraph);
 
   TheGraph.config.app = {
     container: {
@@ -46,8 +72,8 @@
     //console.log("here is content input:")
     //console.log(content);
     //
-    //console.log("here is the options object:")
-    //console.log(options)
+    //console.log("here is the options object:");
+    //console.log(options);
 
     //console.log("here is the options input variable:");
 
@@ -66,20 +92,20 @@
   }
 
   function createAppGraph(options) {
-    //console.log("createAppGraph options:")
-    //console.log(options)
+    //console.log("createAppGraph options:");
+    //console.log(options);
     return TheGraph.Graph(options);
   }
 
   function createAppTooltip(options) {
-    //console.log("createAppTooltip options:")
-    //console.log(options)
+    //console.log("createAppTooltip options:");
+    //console.log(options);
     return TheGraph.Tooltip(options);
   }
 
   function createAppModalBackground(options) {
-    //console.log("createAppModalBackground options:")
-    //console.log(options)
+    //console.log("createAppModalBackground options:");
+    //console.log(options);
     return TheGraph.ModalBG(options);
   }
 
@@ -159,8 +185,8 @@
     lastY: 0,
     pinching: false,
     onTransformStart: function (event) {
-      //console.log("here's the event in onTransformStart:")
-      //console.log(event)
+      //console.log("here's the event in onTransformStart:");
+      //console.log(event);
       // Don't drag nodes
       event.stopPropagation();
       event.stopImmediatePropagation();
@@ -275,8 +301,6 @@
       });
     },
     triggerFit: function (event) {
-      console.log("gefiuewqgfvbWFEGV   wheoihwq changing width");
-
       var fit = TheGraph.findFit(this.props.graph, this.props.width, this.props.height);
       this.setState({
         x: fit.x,
@@ -318,13 +342,15 @@
       this.hideContext();
     },
     componentDidMount: function () {
-      //console.log("here's app.js this.props:")
-      //console.log(this.props)
+      //console.log("here's app.js this.props:");
+      //console.log(this.props);
       var domNode = this.getDOMNode();
-      //console.log("here's domNode:")
-      //console.log(domNode)
+      //console.log("here's domNode:");
+      //console.log(domNode);
 
       // Set up PolymerGestures for app and all children
+      console.log("here's PolymerGestures:");
+      console.log(PolymerGestures);
       var noop = function(){};
       PolymerGestures.addEventListener(domNode, "up", noop);
       PolymerGestures.addEventListener(domNode, "down", noop);
@@ -436,8 +462,8 @@
     },
     unselectAll: function (event) {
       // No arguments = clear selection
-      //console.log("here's the event for unselectAll:")
-      //console.log(event)
+      //console.log("here's the event for unselectAll:");
+      //console.log(event);
       this.props.onNodeSelection();
       this.props.onEdgeSelection();
     },
@@ -506,8 +532,8 @@
         });
     },
     render: function() {
-      //console.log("inside render for graphApp")
-      //console.log(TheGraph.merge)
+      //console.log("inside render for graphApp");
+      //console.log(TheGraph.merge);
 
       // console.timeEnd("App.render");
       // console.time("App.render");
@@ -518,6 +544,7 @@
       var y = this.state.y;
       var transform = "matrix("+sc+",0,0,"+sc+","+x+","+y+")";
 
+      var scaleClass = sc > TheGraph.zbpBig ? "big" : ( sc > TheGraph.zbpNormal ? "normal" : "small");
       var scaleClass = sc > TheGraph.zbpBig ? "big" : ( sc > TheGraph.zbpNormal ? "normal" : "small");
 
       var contextMenu, contextModal;
@@ -545,9 +572,9 @@
         this.menuShown = false;
       }
 
-      console.log("here's this.props.library inside app:");
+      console.log("here's this.props.library inside app-edited:");
       console.log(this.props.library);
-      console.log("here's this.props in app");
+      console.log("here's this.props in app-edited");
       console.log(this.props);
 
       var graphElementOptions = {
@@ -559,8 +586,8 @@
         onEdgeSelection: this.props.onEdgeSelection,
         showContext: this.showContext
       };
-      //console.log("here's 'this' in app.js:")
-      //console.log(this)
+      console.log("here's 'this' in app.js:");
+      console.log(this);
       graphElementOptions = TheGraph.merge(TheGraph.config.app.graph, graphElementOptions);
       var graphElement = TheGraph.factories.app.createAppGraph.call(this, graphElementOptions);
 
@@ -605,8 +632,8 @@
       ];
       var containerOptions = TheGraph.merge(TheGraph.config.app.container, { style: { width: this.state.width, height: this.state.height } });
       containerOptions.className += " " + scaleClass;
-      console.log("inside app.js, here's 'this':");
-      console.log(this)
+      console.log("inside app-edited.js, here's 'this':");
+      console.log(this);
       console.log("here's this.state too:");
       console.log(this.state);
       return TheGraph.factories.app.createAppContainer.call(this, containerOptions, appContents);
@@ -614,4 +641,4 @@
   }));
 
 
-})(this);
+})(window);

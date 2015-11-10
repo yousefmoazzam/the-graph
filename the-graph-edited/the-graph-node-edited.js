@@ -81,16 +81,16 @@
   }
 
   // PolymerGestures monkeypatch
-  PolymerGestures.dispatcher.gestures.forEach( function (gesture) {
-    // hold
-    if (gesture.HOLD_DELAY) {
-      gesture.HOLD_DELAY = 500;
-    }
-    // track
-    if (gesture.WIGGLE_THRESHOLD) {
-      gesture.WIGGLE_THRESHOLD = 8;
-    }
-  });
+  //PolymerGestures.dispatcher.gestures.forEach( function (gesture) {
+  //  // hold
+  //  if (gesture.HOLD_DELAY) {
+  //    gesture.HOLD_DELAY = 500;
+  //  }
+  //  // track
+  //  if (gesture.WIGGLE_THRESHOLD) {
+  //    gesture.WIGGLE_THRESHOLD = 8;
+  //  }
+  //});
 
   // Node view
   TheGraph.Node = React.createFactory( React.createClass({
@@ -99,8 +99,8 @@
       TheGraph.mixins.Tooltip
     ],
     componentDidMount: function () {
-      //console.log("here's this.props of node.js:")
-      //console.log(this.props)
+      //console.log("here's this.props of node.js:");
+      //console.log(this.props);
       var domNode = this.getDOMNode();
       
       // Dragging
@@ -342,7 +342,7 @@
       );
     },
     render: function() {
-      console.log("inside the render of node.js")
+      console.log("inside the render of node.js");
       if (this.props.ports.dirty) {
         // This tag is set when an edge or iip changes port colors
         this.props.ports.dirty = false;
@@ -532,4 +532,4 @@
     return result;
   }
 
-})(this);
+})(window);
