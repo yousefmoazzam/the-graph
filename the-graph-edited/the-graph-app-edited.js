@@ -1,34 +1,9 @@
 (function (context) {
 
-  //var theGraph = require('./the-graph-edited.js');
-  //console.log(theGraph);
-  //console.log(require('./the-graph-edited.js'));
-  //console.log(module.exports);
-  //var fontAwesomeEdited = require('./font-awesome-unicode-map-edited.js');
-  //var theGraphGraphEdited = require('./the-graph-graph-edited.js');
-  //var theGraphNodeEdited = require('./the-graph-node-edited.js');
-  //var theGraphNodeMenuEdited = require('./the-graph-node-menu-edited.js');
-  //var theGraphNodeMenuPortEdited = require('./the-graph-node-menu-port-edited.js');
-  //var theGraphNodeMenuPortsEdited = require('./the-graph-node-menu-ports-edited.js');
-  //var theGraphPortEdited = require('./the-graph-port-edited.js');
-  //var theGraphEdgeEdited = require('./the-graph-edge-edited.js');
-  //var theGraphIIPEdited = require('./the-graph-iip-edited.js');
-  //var theGraphGroupEdited = require('./the-graph-group-edited.js');
-  //var theGraphTooltipEdited = require('./the-graph-tooltip-edited.js');
-  //var theGraphMenuEdited = require('./the-graph-menu-edited.js');
-  //var theGraphClipboardEdited = require('./the-graph-clipboard-edited.js');
-
   "use strict";
-  //console.log("here's this in app edited:");
-  //console.log(this);
-  //console.log(window);
-  //
-  //console.log("here's context in app edited:");
-  //console.log(context);
 
   var TheGraph = context.TheGraph;
 
-  //console.log(context.TheGraph);
 
   TheGraph.config.app = {
     container: {
@@ -69,19 +44,6 @@
 
   // No need to promote DIV creation to TheGraph.js.
   function createAppContainer(options, content) {
-    //console.log("here is content input:")
-    //console.log(content);
-    //
-    //console.log("here is the options object:");
-    //console.log(options);
-
-    //console.log("here is the options input variable:");
-
-    //for(var key in options){
-    //  console.log(key)
-    //  console.log(options[key])
-    //}
-
     var args = [options];
 
     if (Array.isArray(content)) {
@@ -92,20 +54,14 @@
   }
 
   function createAppGraph(options) {
-    //console.log("createAppGraph options:");
-    //console.log(options);
     return TheGraph.Graph(options);
   }
 
   function createAppTooltip(options) {
-    //console.log("createAppTooltip options:");
-    //console.log(options);
     return TheGraph.Tooltip(options);
   }
 
   function createAppModalBackground(options) {
-    //console.log("createAppModalBackground options:");
-    //console.log(options);
     return TheGraph.ModalBG(options);
   }
 
@@ -185,8 +141,6 @@
     lastY: 0,
     pinching: false,
     onTransformStart: function (event) {
-      //console.log("here's the event in onTransformStart:");
-      //console.log(event);
       // Don't drag nodes
       event.stopPropagation();
       event.stopImmediatePropagation();
@@ -342,11 +296,7 @@
       this.hideContext();
     },
     componentDidMount: function () {
-      //console.log("here's app.js this.props:");
-      //console.log(this.props);
       var domNode = this.getDOMNode();
-      //console.log("here's domNode:");
-      //console.log(domNode);
 
       // Set up PolymerGestures for app and all children
       console.log("here's PolymerGestures:");
@@ -462,8 +412,6 @@
     },
     unselectAll: function (event) {
       // No arguments = clear selection
-      //console.log("here's the event for unselectAll:");
-      //console.log(event);
       this.props.onNodeSelection();
       this.props.onEdgeSelection();
     },
@@ -532,12 +480,6 @@
         });
     },
     render: function() {
-      //console.log("inside render for graphApp");
-      //console.log(TheGraph.merge);
-
-      // console.timeEnd("App.render");
-      // console.time("App.render");
-
       // pan and zoom
       var sc = this.state.scale;
       var x = this.state.x;
@@ -618,13 +560,6 @@
 
       var canvasOptions = TheGraph.merge(TheGraph.config.app.canvas, { width: this.state.width, height: this.state.height });
       var canvas = TheGraph.factories.app.createAppCanvas.call(this, canvasOptions);
-
-      //var testOptions = TheGraph.merge(TheGraph.config.app.container, {width: this.state.width, height: this.state.height});
-      //var test = TheGraph.factories.app.createAppContainer.call(this, testOptions)
-      //
-      //var testArray= [
-      //    test
-      //]
 
       var appContents = [
         canvas,
