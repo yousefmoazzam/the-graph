@@ -2,28 +2,12 @@
  * Created by twi18192 on 03/11/15.
  */
 
-//var graphInitialised = new CustomEvent(
-//    "graphInitialised",
-//    {
-//        detail: {
-//
-//        },
-//
-//        bubbles: true,
-//        cancelable: true
-//    }
-//);
-
 var graphInitialisedEvent = new Event('graphInitialised');
 var firChangedEvent = new Event('changed');
 
 /* editor events */
 
 /* Firing for regular methods */
-
-/* Hmm, 'editorWidthChanged is used in graph-nav, does it matter if I use it?' */
-
-//var editorWidthChanged = new Event('widthChanged');
 
 var customEditorWidthChanged = new Event('EditorWidthChanged');
 var customEditorHeightChanged = new Event('EditorHeightChanged');
